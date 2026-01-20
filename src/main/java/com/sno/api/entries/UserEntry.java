@@ -1,6 +1,8 @@
 package com.sno.api.entries;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -19,11 +21,18 @@ public class UserEntry {
     @Column(nullable = false, length = 60)
     private String password;
 
+    @Column
+    private List<Long> tickets;
+
     public String getEmail() {
         return email;
     }
     public UUID getPublicId() {
         return publicId;
+    }
+
+    public List<Long> getTickets() {
+        return tickets;
     }
 
     public void setEmail(String email) {

@@ -5,6 +5,8 @@ import com.sno.api.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserService {
 
@@ -23,5 +25,9 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(rawPassword));
 
         return userRepository.save(user);
+    }
+
+    public UserEntry getUser(UUID publicId) {
+        return userRepository.findByPublicId(publicId);
     }
 }

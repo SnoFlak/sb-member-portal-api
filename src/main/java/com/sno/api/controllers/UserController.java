@@ -26,9 +26,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> createUser(@RequestBody UserRegistrationRequest req) {
-        userService.createUser(req);
-        return ResponseEntity.ok("User registered successfully and password hashed!");
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserRegistrationRequest req) {
+        UserEntry user = userService.createUser(req);
+        return ResponseEntity.ok(new UserResponse(user.getPublicId(), user.getEmail()));
     }
 
     @GetMapping("/{publicId}")

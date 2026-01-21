@@ -30,6 +30,7 @@ public class UserEntry {
     public UUID getPublicId() {
         return publicId;
     }
+    public String getPassword() { return password; }
 
     public List<Long> getTickets() {
         return tickets;

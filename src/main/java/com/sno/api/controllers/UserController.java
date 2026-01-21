@@ -4,6 +4,7 @@ import com.sno.api.dto.UserRegistrationRequest;
 import com.sno.api.dto.UserResponse;
 import com.sno.api.entries.UserEntry;
 import com.sno.api.services.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +25,9 @@ public class UserController {
         return "Hello!";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/register")
     public ResponseEntity<String> createUser(@RequestBody UserRegistrationRequest req) {
-        userService.createUser(req.email(), req.password());
+        userService.createUser(req);
         return ResponseEntity.ok("User registered successfully and password hashed!");
     }
 
@@ -34,5 +35,11 @@ public class UserController {
     public ResponseEntity<UserResponse> getUser(@PathVariable UUID publicId) {
         UserEntry user = userService.getUser(publicId);
         return ResponseEntity.ok(new UserResponse(user.getPublicId(), user.getEmail()));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserResponse> loginUser(@RequestBody UserRegistrationRequest req) throws Exception {
+        UserResponse response = userService.loginUser(req);
+        return ResponseEntity.ok(response);
     }
 }
